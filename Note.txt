@@ -1,0 +1,416 @@
+#include <iostream>
+#include <string>
+int main() {
+
+int foo()
+{
+//constexpr int val = get_value();
+return 3; // obliczona w czasie kompilacji 
+}
+std::cout << 31%10;  // = 1 
+std::cout << 31/10; // = 3
+//std::cout << "formatowanie" << std::setw(10); // = 3
+
+
+    int a[] = [1,2,3,4,5,6];
+ 
+    return 0;
+}
+
+
+//!........................................................
+
+// result = (condicion) ? op1 : op2 ;  // Ternary expresion
+const char *str = "dlaczego niemage tak zrobic ?\ntojest teksts"; muszisz dawac const bo tak  ... safe !!!
+
+static // jeżeli w funkcji to poprostu niejest usuwana po zakończeniu funkcji // chuca niepowinno sie tego używac 
+
+static // jeżeli  na zewnątrz funkcji, czyli w zakresie pliku, to będzie miała zasięg ograniczony do pliku, w którym jest zadeklarowana
+
+
+
+stak jest skończone i kontrolowany przez komputer hip jest używane kiedy chcesz miec więcej pamięci i ty kontrolujesz kiedy jest zwalniana 
+
+
+...................................
+int *pnum {nullptr};            to jest zapisywane w heep i po usuniecuu należy przypisac wartosc nullptr
+pnum = new int;                 // kiedy to robisz dostajesz nowy kawałek pamięci
+
+delete pnum;
+pnum = nullptr
+int *ptrzwartosc = new int(22);
+int *przyklad2 {new int(34)};//alokacja paięci na heap
+std::cout << *ptrzwartosc;
+
+
+
+
+                                                Dangling Pointers
+wskazuje na niepoprawny adres
+int *ptr2 {new int(34)};//alokacja paięci na heap
+
+int** *ptr3 = new int**(&ptr2); /// 20 min 
+
+double *p_arr1 {new double[size]};
+int * stu {new(std::nothrow) int[size]{}} // wprzypadku błędu niema crusha tylko stu zawiera nullptr 
+delete[ stu];
+stu = nullptr;
+
+
+std::cout << std::strcmp(strp,str);
+std::strchr(result,target) // oddaje wskaznik na szukany element 1 
+std::strchr  // oddaje ostatni znaleziony znak
+
+std::str
+
+//referencje twożenie 
+int x = 5;
+int &refx = x
+
+............................................................................................................................................
+
+//Todo lambda functions, [capture list](parameatr) -> retuen type{ //Body };
+
+
+
+auto func = [](){
+    std::cout << "Helo world" << std::endl;
+};
+
+
+[](){
+    std::cout << "Helo world" << std::endl;
+}();
+
+
+
+[](double a, double b){
+    std::cout << (a + b) << std::endl;
+}(12.1,5,7);
+
+
+auto result =[](double a, double b)->double{
+    std::cout << (a + b) << std::endl;
+}(12.1,5,7);
+
+std::cout << "result" << result << std::endl;
+
+
+
+auto resut = [](double a, double b){
+    return a + b ;
+}(4,6);
+
+std::cout << "result" << resut <<  std::endl;
+
+auto resut = [](double a, double b){
+    return a + b ;
+};
+
+std::cout << "result" << resut(5,6) <<  std::endl;
+
+
+
+return 0;   
+std::cout << "result" <<[](double a, double b){
+    return a + b ;
+}(5,4) << std::endl;
+
+
+int main(){
+
+auto fun1 = [](double a, double b) -> double{
+    return (a + b);
+};
+
+auto fun2 = [](double a, double b){
+    return a + b;
+};
+
+double a{6.9};
+double b{3.6};
+
+auto result1 = fun1(a,b);
+auto result2 = fun2(a,b);
+
+std::cout << sizeof(result1) << std::endl;
+
+
+return 0;   
+}
+
+
+int main(){
+
+
+double a{10};
+double b{20};
+auto func = [=](){
+    std::cout << a + b << std::endl; 
+};
+func();
+
+
+return 0;   
+
+}
+
+int main(){
+
+
+double a{10};
+double b{20};
+auto func = [&a,&b](){
+    std::cout << a + b << std::endl; 
+};
+func();
+
+
+return 0;   
+
+}
+int main(){
+
+
+double a{10};
+double b{20};
+auto func = [&](){
+    std::cout << a + b << std::endl; 
+};
+func();
+
+
+return 0;   
+
+}
+
+
+//
+...............................................................................................................................
+//! funtion templates
+
+template <typename T> T maximum(T a,T b);
+
+int main(int argc, char **argv){
+
+
+int a{10};
+int b{20};
+
+double c{34.7};
+double d{23.4};
+
+std::string e{"hello"};
+std::string f{"world"};
+
+std::cout << "int: " << maximum(a,b) << std::endl;
+
+std::cout << "doube: " << maximum(c,d) << std::endl;
+
+std::cout << "string: " << maximum(e,f) << std::endl;
+
+
+
+return 0;   
+
+}
+
+//! funtion templates
+
+template <typename T>
+T maximum(T a,T b){
+    return(a > b)? a : b;
+}
+
+int main(int argc, char **argv){
+
+double x{5};
+double y{7};
+
+auto result = maximum(x,y);
+std::cout << "result" << result << std::endl;
+return 0;   
+
+}
+
+
+template <typename T> 
+concept TinyType = requires(T t){
+    sizeof(T) <= 4;
+    requires sizeof(T) <= 4;
+};
+
+template <typename T>
+T func(T t) requires std::integral<T> && 
+                                    requires(T t){
+                                        sizeof(T) <= 4;
+                                        requires sizeof(T) <= 4;
+                                    }
+{
+    std::cout << "Value : " << t << std::endl;
+    return (2*t);
+}
+
+
+
+template <typename T>
+requires std::integral<T> || std::floating_point<T>
+T add(T a , T b)
+{
+    return a + b;
+}
+
+int main(int argc, char **argv){
+
+double a{6};
+double b{4};
+
+std::cout << "Add : " << add(a,b) << std::endl;
+
+
+p
+return 0;
+}
+
+
+
+//! funtion templates
+
+std::integral auto add(std::integral auto a, std::integral auto b){
+    return  a + b;
+}
+
+
+int main(int argc, char **argv){
+
+
+std::floating_point auto x = 3.5;
+
+}
+
+
+
+
+
+#include <iostream>
+#include <cstring>
+
+//! CLASSES XD to jest pojebane chyba //
+
+class Cylinder
+{
+    private:
+        double height{1};
+        double radius{1};
+    public:
+        Cylinder(){
+            height  =  2.0;
+            radius = 2.0;
+        }
+        Cylinder(double rad_par , double hei_par){
+            height = hei_par;
+            radius = rad_par;
+        }
+        double volume(){
+            return 3.14 * radius * radius * height;
+        }
+
+};
+
+
+int
+main(int argc, char **argv)
+{
+    Cylinder cylinder1(5,12); // Object
+
+    std::cout << cylinder1.volume() << std::endl;
+
+
+
+
+    return 0;
+}
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$44
+
+
+
+#include "cylinder.h"
+
+Cylinder::Cylinder(double rad_par, double hei_par)
+{
+    height = hei_par;
+    radius = rad_par;
+}
+double Cylinder::volume()
+{
+    return PI * radius * radius * height;
+}
+
+double Cylinder::get_height()
+{
+    return height;
+}
+double Cylinder::give_height(double h)
+{
+    height = h;
+    return 0;
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+#ifndef CYLINDER_H
+#define CYLINDER_H
+
+#include "const.h"
+#endif
+
+class Cylinder
+{
+private:
+    double height{1};
+    double radius{1};
+
+public:
+    Cylinder()
+    {
+        height = 2.0;
+        radius = 2.0;
+    }
+    Cylinder(double rad_par, double hei_par);
+
+    double volume();
+    double get_height();
+    double give_height(double h);
+};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+#include <iostream>
+#include "cylinder.h"
+//! CLASSES XD
+
+int main(int argc, char **argv)
+{
+    // Cylinder cylinder1(10, 10);
+    // Cylinder *c2 = &cylinder1;
+
+    // std::cout << "vol : " << cylinder1.volume() << std::endl;
+    // std::cout << "vol : " << (*c2).volume() << std::endl;
+
+    // std::cout << "vol : " << c2->volume() << std::endl;
+
+    Cylinder *p_cylinder2 = new Cylinder(100, 2);
+
+    std::cout << "vol : " << p_cylinder2->volume() << std::endl;
+
+    delete p_cylinder2;
+
+    return 0;
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
